@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             IconImageSource="signup"
+             x:Class="XamBase.Views.SignUpPage"
+             Title="{Binding Title}"
+             xmlns:vm="clr-namespace:XamBase.ViewModels" 
+             xmlns:controls="clr-namespace:XamBase.Controls">
+    <ContentPage.BindingContext>
+        <vm:SignUpViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <controls:DinamicVisibilityToolbarItem Text="Guardar" 
+                                               Priority="1" 
+                                               Order="Primary"
+                                               IsVisible="{Binding IsBusy}"
+                                               />
+    </ContentPage.ToolbarItems>
+    
+    <TableView Intent="Form"
+               HasUnevenRows="True"
+               BindingContext="{Binding User}">
+        <TableSection Title="Informacion del usuario">
+            <ViewCell>
+                <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                    <Entry Placeholder="Nombre"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Name}"/>
+                    <Image HeightRequest="30"
+                           WidthRequest="20"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                    <Entry Placeholder="Direccion"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Address}"/>
+                    <Image HeightRequest="30"
+                           WidthRequest="20"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                    <Entry Placeholder="Telefono"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding PhoneNumber}"/>
+                    <Image HeightRequest="30"
+                           WidthRequest="20"/>
+                </StackLayout>
+            </ViewCell>
+        </TableSection>
+        
+        <TableSection Title="Informacion de la cuenta">
+            <ViewCell>
+                <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                    <Entry Placeholder="Correo Electronico"
+                           Keyboard="Email"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Email}"/>
+                    <Image HeightRequest="30"
+                           WidthRequest="20"/>
+                </StackLayout>
+            </ViewCell>
+            <ViewCell>
+                <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
+                    <Entry Placeholder="Contraseña"
+                           IsPassword="True"
+                           HorizontalOptions="FillAndExpand"
+                           Text="{Binding Password}"/>
+                    <Image HeightRequest="30"
+                           WidthRequest="20"/>
+                </StackLayout>
+            </ViewCell>
+        </TableSection>
+    </TableView>
+</ContentPage>
