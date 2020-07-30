@@ -8,7 +8,8 @@
              x:Class="XamBase.Views.SignUpPage"
              Title="{Binding Title}"
              xmlns:vm="clr-namespace:XamBase.ViewModels" 
-             xmlns:controls="clr-namespace:XamBase.Controls">
+             xmlns:controls="clr-namespace:XamBase.Controls"
+             xmlns:behaviors="clr-namespace:XamBase.Behaviors">
     <ContentPage.BindingContext>
         <vm:SignUpViewModel/>
     </ContentPage.BindingContext>
@@ -17,19 +18,18 @@
         <controls:DinamicVisibilityToolbarItem Text="Guardar" 
                                                Priority="1" 
                                                Order="Primary"
-                                               IsVisible="{Binding IsBusy}"
+                                               IsVisible="{Binding IsValid}"
                                                />
     </ContentPage.ToolbarItems>
     
     <TableView Intent="Form"
-               HasUnevenRows="True"
-               BindingContext="{Binding User}">
+               HasUnevenRows="True">
         <TableSection Title="Informacion del usuario">
             <ViewCell>
                 <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
                     <Entry Placeholder="Nombre"
                            HorizontalOptions="FillAndExpand"
-                           Text="{Binding Name}"/>
+                           Text="{Binding User.Name}"/>
                     <Image HeightRequest="30"
                            WidthRequest="20"/>
                 </StackLayout>
@@ -38,7 +38,7 @@
                 <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
                     <Entry Placeholder="Direccion"
                            HorizontalOptions="FillAndExpand"
-                           Text="{Binding Address}"/>
+                           Text="{Binding User.Address}"/>
                     <Image HeightRequest="30"
                            WidthRequest="20"/>
                 </StackLayout>
@@ -47,7 +47,14 @@
                 <StackLayout Padding="5,5,5,5" Orientation="Horizontal">
                     <Entry Placeholder="Telefono"
                            HorizontalOptions="FillAndExpand"
-                           Text="{Binding PhoneNumber}"/>
+                           Text="{Binding User.PhoneNumber}"
+                           Keyboard="Telephone">
+                        <Entry.Behaviors>
+                            <behaviors:EntryValidationBehavior
+                                IsValid="{Binding IsValidPhoneNumber}"
+                                ValidationType="PhoneNumber"/>
+                        </Entry.Behaviors>
+                    </Entry>
                     <Image HeightRequest="30"
                            WidthRequest="20"/>
                 </StackLayout>
@@ -60,7 +67,14 @@
                     <Entry Placeholder="Correo Electronico"
                            Keyboard="Email"
                            HorizontalOptions="FillAndExpand"
-                           Text="{Binding Email}"/>
+                           Text="{Binding User.Email}"
+                           >
+                        <Entry.Behaviors>
+                            <behaviors:EntryValidationBehavior
+                                IsValid="{Binding IsValidEmail}"
+                                ValidationType="Email"/>
+                        </Entry.Behaviors>
+                    </Entry>
                     <Image HeightRequest="30"
                            WidthRequest="20"/>
                 </StackLayout>
@@ -70,7 +84,13 @@
                     <Entry Placeholder="Contraseña"
                            IsPassword="True"
                            HorizontalOptions="FillAndExpand"
-                           Text="{Binding Password}"/>
+                           Text="{Binding User.Password}">
+                        <Entry.Behaviors>
+                            <behaviors:EntryValidationBehavior
+                                IsValid="{Binding IsValidPassword}"
+                                ValidationType="Password"/>
+                        </Entry.Behaviors>
+                    </Entry>
                     <Image HeightRequest="30"
                            WidthRequest="20"/>
                 </StackLayout>
